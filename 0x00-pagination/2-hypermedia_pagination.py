@@ -61,7 +61,7 @@ class Server:
         """Use Hypermedia pagination"""
         data = self.get_page(page, page_size)
         total_pages = len(self.dataset())
-        mod_total = 1 if total_pages % page_size else 0
+        mod_total = 0 #1 if total_pages % page_size else 0
         return {
                 'page_size': len(data),
                 'page': page,
