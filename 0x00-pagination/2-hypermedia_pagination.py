@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Index Range Module"""
 
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 import csv
 import math
 
@@ -56,3 +56,17 @@ class Server:
         except Exception:
             pass
         return []
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+        """Use Hypermedia pagination"""
+        data = self.get_page(page, page_size)
+        total_pages = len(self.dataset())
+        mod_total = 1 if total_pages % page_size else 0
+        return {
+                'page_size': len(data),
+                'page': page,
+                'data': data,
+                'next_page': page + 1 if page < total_pages else None,
+                'prev_page': page - 1 if page > 1 else None,
+                'total_pages': (total_pages // page_size) + mod_total
+                }
