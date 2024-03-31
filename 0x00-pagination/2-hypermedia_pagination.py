@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Index Range Module"""
 
-from typing import Tuple, List, Dict
+from typing import Tuple, List, Dict, Union, Optional
 import csv
 import math
 
@@ -57,16 +57,20 @@ class Server:
             pass
         return []
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Union[int, List[List], None]]::
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[
+        str,
+        Union[int, List[int], Optional[int]]
+    ]:
         """Use Hypermedia pagination"""
         data = self.get_page(page, page_size)
         total_pages = len(self.dataset())
         m = 1 if total_pages % page_size else 0
+        t_p = total_pages + m
         return {
                 'page_size': len(data),
                 'page': page,
                 'data': data,
-                'next_page': page + 1 if page < (total_pages + m) else None,
+                'next_page': page + 1 if page < t_p else None,
                 'prev_page': page - 1 if page > 1 else None,
                 'total_pages': (total_pages // page_size) + m
                 }
