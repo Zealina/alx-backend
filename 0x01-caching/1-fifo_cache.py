@@ -19,9 +19,10 @@ class FIFOCache(BaseCaching):
         if len(self.__ol) >= BaseCaching.MAX_ITEMS:
             tbpop = self.__ol.pop(0)
             del self.cache_data[tbpop]
-            print(f"jjjjjDiscard: {tbpop}")
+            print(f"DISCARD: {tbpop}")
         self.cache_data[key] = item
-        self.__ol.append(key)
+        if key not in self.__ol:
+            self.__ol.append(key)
 
     def get(self, key):
         """Retrieve cached item"""
