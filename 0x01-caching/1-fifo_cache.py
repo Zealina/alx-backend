@@ -21,14 +21,9 @@ class FIFOCache(BaseCaching):
             del self.cache_data[tbpop]
             print(f"Discard: {tbpop}")
         self.cache_data[key] = item
-        if key not in self.__ol:
-            self.__ol.append(key)
+        self.__ol.append(key)
 
     def get(self, key):
         """Retrieve cached item"""
         if key is not None:
-            try:
-                return self.cache_data[key]
-            except KeyError:
-                pass
-        return None
+            return self.cache_data.get(key)
