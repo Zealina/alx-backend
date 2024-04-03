@@ -8,19 +8,20 @@ class FIFOCache(BaseCaching):
     """FIFO Caching Clasd"""
     def __init__(self):
         """initialize the class"""
-        self.__ol = set()
+        self.__ol = []
         super().__init__()
 
     def put(self, key, item):
         """Add item to the cache until max
         then discard in fifo"""
         if key is not None and item is not None:
-            self.cache_data[key] = item
-            self.__ol.add(key)
-            if len(self.__ol) > BaseCaching.MAX_ITEMS:
-                tbpop = self.__ol.remove(0)
+            if len(self.__ol) >= BaseCaching.MAX_ITEMS:
+                tbpop = self.__ol.pop(0)
                 self.cache_data.pop(tbpop)
                 print(f"Discard: {tbpop}")
+            self.cache_data[key] = item
+            if key not in self.__ol:
+                self.__ol.append(key)
 
     def get(self, key):
         """Retrieve cached item"""
