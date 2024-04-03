@@ -19,7 +19,7 @@ class FIFOCache(BaseCaching):
         if len(self.__ol) >= BaseCaching.MAX_ITEMS:
             tbpop = self.__ol.pop(0)
             del self.cache_data[tbpop]
-            print(f"Discard: {tbpop}")
+            print(f"jjjjjDiscard: {tbpop}")
         self.cache_data[key] = item
         self.__ol.append(key)
 
