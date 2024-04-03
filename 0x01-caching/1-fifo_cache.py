@@ -14,14 +14,15 @@ class FIFOCache(BaseCaching):
     def put(self, key, item):
         """Add item to the cache until max
         then discard in fifo"""
-        if key is not None and item is not None:
-            if len(self.__ol) >= BaseCaching.MAX_ITEMS:
-                tbpop = self.__ol.pop(0)
-                self.cache_data.pop(tbpop)
-                print(f"Discard: {tbpop}")
-            self.cache_data[key] = item
-            if key not in self.__ol:
-                self.__ol.append(key)
+        if key is None or item is None:
+            return
+        if len(self.__ol) >= BaseCaching.MAX_ITEMS:
+            tbpop = self.__ol.pop(0)
+            del self.cache_data[tbpop]
+            print(f"Discard: {tbpop}")
+        self.cache_data[key] = item
+        if key not in self.__ol:
+            self.__ol.append(key)
 
     def get(self, key):
         """Retrieve cached item"""
