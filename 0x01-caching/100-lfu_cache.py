@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Create LFUCache class that inherits from BaseCaching """
 BaseCaching = __import__('base_caching').BaseCaching
 
