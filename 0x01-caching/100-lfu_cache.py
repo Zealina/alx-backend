@@ -15,7 +15,8 @@ class LFUCache(BaseCaching):
     def put(self, key, item):
         """ Assign the item to the dictionary """
         if key and item:
-            if (len(self.queue) >= self.MAX_ITEMS and not self.cache_data.get(key)):
+            if (len(self.queue) >= self.MAX_ITEMS and
+                    not self.cache_data.get(key)):
                 delete = self.queue.pop(0)
                 self.lfu.pop(delete)
                 self.cache_data.pop(delete)
